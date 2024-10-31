@@ -27,6 +27,13 @@ Parameters:
       - CONTINUOUS
       - DAILY
 
+  SQSConfigRecorderMessageWaitTime:
+    Description: The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 20 (seconds)
+    Default: 20
+    Type: Number
+    MinValue: 0
+    MaxValue: 20
+
   CloudFormationVersion:
     Type: String
     Default: 1
@@ -194,6 +201,7 @@ Resources:
             VisibilityTimeout: 180
             DelaySeconds: 5
             KmsMasterKeyId: alias/aws/sqs
+            ReceiveMessageWaitTimeSeconds: !Ref SQSConfigRecorderMessageWaitTime
 
     ProducerEventTrigger:
         Type: AWS::Events::Rule
